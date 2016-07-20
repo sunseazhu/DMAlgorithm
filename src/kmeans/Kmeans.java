@@ -51,9 +51,9 @@ public class Kmeans {
 	}
 
 	/**
-	 * 根据聚类中心初始化聚类信息，质心赋值（整型ID），添加质心（对象类型）到子类中  
+	 * 根据聚类中心初始化聚类信息，质心赋值（整型ID），然后将该质心对应的子类添加到大类cluster中  
 	 * @param center 聚类中子类的中心
-	 * @return 子类的集合。此时的cluster中，他的质心已经赋值，并且已经将质心添加到该类中
+	 * @return 子类的集合。此时的cluster中，他的质心ID已经赋值，并且已经将质心添加到该类中
 	 */
 	public ArrayList<Cluster> init(Set<Integer> center) {
 		ArrayList<Cluster> cluster = new ArrayList<Cluster>();// 聚类 的数组  
@@ -61,14 +61,14 @@ public class Kmeans {
 		while (it.hasNext()) {
 			Cluster c = new Cluster();// 代表一个聚类  
 			c.setCenter(it.next()); //设置聚类中的子类的质心为center
-			cluster.add(c);//将center加入到子类对象cluster中
+			cluster.add(c);//将一个子类添加到cluster数组中，cluster数组表示整个聚类，中间的每个元素表示一个小类
 			
 		}
 		return cluster;// 
 	}
 
 	/** 
-	 * 计算各个武将到各个聚类中心的距离，重新聚类 
+	 * 计算各个武将到各个聚类中心的距离，聚类
 	 *  
 	 * @param cluster 
 	 *            聚类数组,用来聚类的，根据最近原则把武将聚类 
@@ -85,7 +85,7 @@ public class Kmeans {
 		Object[] p = center.toArray();// p 为聚类中心点id数组  
 		boolean flag = false;//控制和质心计算距离的点是不是被选择为质心
 		// 分别计算各个点到各个中心点的距离，并将距离最小的加入到各个聚类中，进行聚类  
-		for (int i = 0; i < totalNumber; i++) {
+		for (int i = 0; i < totalNumber; i++) {//非质心点
 			// 每个点计算完,并聚类到距离最小的聚类中就清空距离数组  
 			distances.clear();
 			// 计算到j个类中心点的距离,便利各个中心点  
@@ -101,7 +101,8 @@ public class Kmeans {
 				} else {
 					flag = false;
 				}
-			}
+			}//此时非质心的点已经与所有质心的距离计算完毕，保存在distances对象数组中
+			
 			// 说明计算完某个武将到类中心的距离,开始比较  
 			if (flag == true) {
 				// 排序比较一个点到各个中心的距离的大小,找到距离最小的武将的 目的id,和源id,  
@@ -115,12 +116,13 @@ public class Kmeans {
 						id = distances.get(k).getDest();// 目的，即类中心点  
 						id2 = distances.get(k).getSource();// 某个武将  
 						minid = k;
-					} else {
+					} else {//如果最初的0位置就是最小的，那么此时源id和目的id就是0对应的
 						id = distances.get(minid).getDest();
 						id2 = distances.get(minid).getSource();
 					}
-				}
-				// 遍历cluster聚类数组，找到类中心点id与最小距离目的武将id相同的聚类  
+				}//此时的的id、id2分别对应的距离最小的质心和源点（非质心，对应for循环中的j）
+				
+				// 遍历cluster聚类数组，找到类中心点id与最小距离目的武将id相同的聚类，然后将源id添加到该聚类中  
 				for (int n = 0; n < cluster.size(); n++) {
 					// 如果和中心点的id相同 则setError  
 					if (cluster.get(n).getCenter() == id) {
@@ -142,7 +144,11 @@ public class Kmeans {
 		return center;
 	}
 
-	// 更新聚类中心, 求平均值  
+	/**
+	 * 更细聚类的子类质心，质心id为子类的序号，并将平均值添加到子类中。
+	 * @param cluster 所有的子类，ArrayList类型，泛型中的类型为Cluster
+	 * @return 返回所有更新过质心的子类
+	 */
 	public ArrayList<Cluster> updateCluster(ArrayList<Cluster> cluster) {
 		ArrayList<Cluster> result = new ArrayList<Cluster>();
 		// 重新产生的新的聚类中心组成的数组  
@@ -174,14 +180,14 @@ public class Kmeans {
 			}
 			// 产生新的聚类，然后加入到聚类数组中  
 			Cluster newCluster = new Cluster();
-			newCluster.setCenter(j);
+			newCluster.setCenter(j);//设置新的子类中心
 			// 计算平均值并构造新的武将对象  
 			newCluster.addGeneral(new General(sumrender / size, sumtongshai / size, sumwuli / size, sumzhili / size, sumjibin / size, sumnubin / size,
 					sumqibin / size, sumpolic = 0, sumqiangbin = 0, sumbinqi / size, sumtongwu / size, sumtongzhi / size, sumtongwuzhi / size,
 					sumtongwuzhizheng / size, sumsalary / size));
 			result.add(newCluster);
 		}
-		return result;
+		return result;//此时result表示一个大类ArrayList类型，其中的泛型为Cluster表示一个小类，该小类的中心
 
 	}
 
@@ -197,28 +203,19 @@ public class Kmeans {
 		General dest = null;
 		int id = 0;// 目的节点id  
 		int id2 = 0;// 源节点id  
-		//Object[] p = center.toArray();// p 为聚类中心点id数组  
 		boolean flag = false;
 		// 分别计算各个点到各个中心点的距离，并将距离最小的加入到各个聚类中，进行聚类  
 		for (int i = 0; i < totalNumber; i++) {
 			// 每个点计算完,并聚类到距离最小的聚类中就清空距离数组  
 			distence.clear();
 			// 计算到j个类中心点的距离,便利各个中心点  
-			//for (int j = 0; j < center.size(); j++) {  
 			for (int j = 0; j < update.size(); j++) {
-				// 如果该点不在中心点内 则计算距离  
-				//if (!(center.contains(i))) {  
 				flag = true;
 				// 计算距离  
 				source = allGenerals.get(i);// 某个点  
-				// dest = allGenerals.get((Integer) p[j]);// 各个 中心点  
 				dest = update.get(j).getOfCluster().get(0);// 各个 中心点  
 				// 计算距离并存入数组  
-				//distence.add(new Distance((Integer) p[j], i, Tool.juli(  
 				distence.add(new Distance(update.get(j).getCenter(), i, Tool.juli(source, dest)));
-				/*
-				 * } else { flag = false; }
-				 */
 			}
 			// 说明计算完某个武将到类中心的距离,开始比较  
 			if (flag == true) {
