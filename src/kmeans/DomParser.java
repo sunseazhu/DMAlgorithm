@@ -9,9 +9,11 @@ import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
 /**
- * 	用于读取xml中的681个武将 
- *	<p>Description: 利用DOM解析技术，解析XML文档信息
- *	<p>Company: cstor
+ * 	用于读取xml中的681个武将 	<br>
+ *<p>
+ *	Description: 利用DOM解析技术，解析XML文档信息	<br>
+ *<p>
+ *	Company: cstor	<br>
  *	
  *	@author zhuxy
  *	2016年7月19日 下午2:31:41

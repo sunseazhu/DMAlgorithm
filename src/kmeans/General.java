@@ -1,9 +1,12 @@
 package kmeans;
 
 /**
- *  代表武将对象
- *	<p>Description:用于描述武将对象的包装类，封装
- *	<p>Company: cstor
+ *  代表武将对象	<br>
+ *	
+ *<p>
+ *	Description:用于描述武将对象的包装类，封装	<br>
+ *<p>
+ *	Company: cstor	<br>
  *	
  *	@author zhuxy
  *	2016年7月19日 下午2:06:48

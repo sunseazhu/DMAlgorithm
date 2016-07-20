@@ -7,11 +7,13 @@ import java.util.Map.Entry;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
 /**
- * 
- *	<p>Title: this is TF-IDF Algorithm
- *	<P>Description:云创大数据广移广告PK大赛前期数据挖据算法准备
- *	<p>Company:cstor</p>
- *	<p>Reference:http://www.cnblogs.com/ywl925/archive/2013/08/26/3275878.html
+ * 这是 TF-IDF算法
+ *<p>
+ *	Description:主要是实现从文档中自动抽取关键词的功能	<br>
+ *<p>
+ *	Company:cstor	<br>
+ *<p>
+ *	Reference:http://www.cnblogs.com/ywl925/archive/2013/08/26/3275878.html	<br>
  *	
  *	@author zhuxy
  *	2016年7月19日 上午10:26:01
