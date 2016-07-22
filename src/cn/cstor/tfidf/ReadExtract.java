@@ -1,4 +1,4 @@
-package tf_idf;
+package cn.cstor.tfidf;
 
 import java.io.*;
 import java.util.*;

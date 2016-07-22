@@ -1,4 +1,4 @@
-package kmeans;
+package cn.cstor.kmeans;
 
 /**
  *  代表武将对象	<br>

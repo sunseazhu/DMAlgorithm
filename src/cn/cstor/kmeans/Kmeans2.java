@@ -1,4 +1,4 @@
-package kmeans;
+package cn.cstor.kmeans;
 
 import java.awt.Color;
 import java.io.FileInputStream;

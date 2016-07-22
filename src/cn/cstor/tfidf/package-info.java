@@ -19,4 +19,4 @@
  *	@author zhuxy
  *	2016年7月19日 上午11:08:18
  */
-package tf_idf;
+package cn.cstor.tfidf;

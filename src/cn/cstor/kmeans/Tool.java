@@ -1,4 +1,4 @@
-package kmeans;
+package cn.cstor.kmeans;
 
 /**
  *工具类:	<br>

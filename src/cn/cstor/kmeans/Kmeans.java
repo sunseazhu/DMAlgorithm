@@ -1,4 +1,4 @@
-package kmeans;
+package cn.cstor.kmeans;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

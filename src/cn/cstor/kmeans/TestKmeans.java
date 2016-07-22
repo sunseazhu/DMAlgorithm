@@ -1,4 +1,4 @@
-package kmeans;
+package cn.cstor.kmeans;
 
 /**
  * 	k-means测试类<br>

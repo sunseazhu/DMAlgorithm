@@ -40,4 +40,4 @@
  *	@author zhuxy
  *	2016年7月19日 下午2:05:05
  */
-package kmeans;
+package cn.cstor.kmeans;
