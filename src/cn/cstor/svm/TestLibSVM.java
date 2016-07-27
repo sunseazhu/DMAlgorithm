@@ -87,7 +87,6 @@ public class TestLibSVM {
         
         
         
-        
         System.out.println("=========   预测结果     =========");
         System.out.println(svm.svm_predict(model, pc));
     }
